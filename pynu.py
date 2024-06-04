@@ -1,8 +1,9 @@
 from pynput.keyboard import Key, Listener, KeyCode
 start_stop_key = KeyCode(char="p")
-stop_key = KeyCode(char="es")
+stop_key = KeyCode(char="esc")
 
 def on_press(key):
+    #== -> in
     if key == start_stop_key:
         print("e")
         return True
