@@ -7,11 +7,13 @@ from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
 
+#tranformar tela em vertical, botao escutar, botao play
+
 with open("diretorios.txt", "r") as arq:
     teste=arq.read()
     teste=teste.split("\n")
 teste_lista_inutil=teste[0].split("    ")
-if teste!=[""]:
+if teste[0]!="":
     if len(teste_lista_inutil[0]) >=2:
         n_lista_teste=""
         for g in range(0,(len(teste_lista_inutil[0])//2)-2):
@@ -40,7 +42,7 @@ janela.resizable(False, False)
 
 
 list_inutil=tk.Listbox(janela, bg="slategray4",highlightthickness = 0, bd = 0,)
-list_inutil.place(x=15, y=10, width=300, height=15)
+list_inutil.place(x=15, y=10, width=250, height=15)
 if teste[0]=="":
     list_inutil.insert(0, "   NOME                        TECLA                        DIRETORIO")
 else:
@@ -60,6 +62,9 @@ def editar_lista():
     def botaactedit():
         preguntadetof=askyesno(title="confirmação", message="Você tem certeza?")
         if preguntadetof:
+            with open("diretorios.txt", "r") as arq:
+                teste=arq.read()
+                teste=teste.split("\n")
             selecao=list_audios.get(tk.ACTIVE)
             selecao=teste.index(selecao)
             var_cobobo=cobobo.get()
@@ -71,9 +76,11 @@ def editar_lista():
                 list_audios.insert(selecao,f"{ijij}    {nteste[1]}    {nteste[2]}")
                 list_audios.delete(selecao+1)
             elif var_cobobo=="Tecla":
-                arquivo.write(f"{nteste[0]}    {ijij}    {nteste[2]}")
+                list_audios.insert(selecao,f"{nteste[0]}    {ijij}    {nteste[2]}")
+                list_audios.delete(selecao+1)
             elif var_cobobo=="Diretorio":
-                arquivo.write(f"{nteste[0]}    {nteste[1]}    {ijij}")
+                list_audios.insert(selecao,f"{nteste[0]}    {nteste[1]}    {ijij}")
+                list_audios.delete(selecao+1)
             else:
                 messagebox.showerror(title="ERROR", message="Você não escolheu uma opção válida")
             with open("diretorios.txt", "w") as arquivo:
@@ -114,18 +121,29 @@ def editar_lista():
     janela_selcao_editar.mainloop()
 
 list_audios=tk.Listbox(janela, bg="slategray4",highlightthickness = 0, bd = 0,)
-list_audios.place(x=15, y=25, width=300, height=210+15)
+list_audios.place(x=15, y=25, width=250, height=200-15)
 for i in range(0, len(teste)):
     list_audios.insert(i,teste[i])
 
-botaoadd=ctk.CTkButton(janela,width=180, height=40, command=lambda: bba.thebutton(list_audios))
-botaoadd.place(x=15, y=255)
+scroll_list_audio1=ctk.CTkScrollbar(janela, orientation="vertical", command=list_audios.yview, height=200+9)
+scroll_list_audio1.place(x=15+250, y=7)
+list_audios["yscrollcommand"]=scroll_list_audio1.set
 
-botaoaed=ctk.CTkButton(janela,text=" Editar ",width=40, height=40, fg_color="dark green", command=editar_lista)
-botaoaed.place(x=22+180, y=255)
+scroll_list_audio2=ctk.CTkScrollbar(janela, orientation="horizontal", command=list_audios.xview, width=258)
+scroll_list_audio2.place(x=12, y=210)
+list_audios["xscrollcommand"]=scroll_list_audio2.set
 
-botaoaed=ctk.CTkButton(janela,text="Apagar",width=40, height=40,fg_color="maroon", command=apagar_da_lista)
-botaoaed.place(x=25+180+57, y=255)
+#botaoadd=ctk.CTkButton(janela,text="Adicionar Audio",width=180, height=40, command=lambda: bba.thebutton(list_audios))
+#botaoadd.place(x=15, y=255)
+
+botaoaed=ctk.CTkButton(janela,text=" Editar ",width=80, height=10, fg_color="dark green", command=editar_lista)
+botaoaed.place(x=15, y=228)
+
+botaoare=ctk.CTkButton(janela,text="Apagar",width=80, height=10,fg_color="maroon", command=apagar_da_lista)
+botaoare.place(x=15+80+12, y=228)
+
+botaoaver=ctk.CTkButton(janela,text="Ver",width=80, height=10,fg_color="Purple4", command=apagar_da_lista)
+botaoaver.place(x=15+80*2+12*2, y=228)
 
 
 #saber posição
