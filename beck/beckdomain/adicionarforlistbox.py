@@ -1,26 +1,52 @@
+from tkinter.filedialog import askopenfilename
+from tkinter.messagebox import askyesno
+import customtkinter as cct
+import tkinter as tk
+from tkinter import messagebox
+def addddd (arquivocomputer, teclaatribuida1, lista_audios):
+    with open("diretorios.txt", "r") as arquivo:
+        diretorio_var=arquivo.read()
+        diretorio_var=diretorio_var.split("\n")
+    nome_do_arquivo=arquivocomputer.split("/")
+    nome_do_arquivo=nome_do_arquivo[len(nome_do_arquivo)-1]
+    nome_do_arquivo=nome_do_arquivo[:nome_do_arquivo.index(".wav")]
+    lista_audios.insert(len(diretorio_var)-1,f"{nome_do_arquivo}    {teclaatribuida1}    {arquivocomputer}\n")
+    with open("diretorios.txt", "a") as arquivo:
+        if diretorio_var!=[""]:
+            arquivo.write("\n")
+        arquivo.write(f"{nome_do_arquivo}    {teclaatribuida1}    {arquivocomputer}")
 
-def addddd ():
-    print()
 
-def thebutton():
-    from tkinter.filedialog import askopenfilename
-    from tkinter.messagebox import askyesno
-    import customtkinter as cct
-    import tkinter as tk
-    from tkinter import messagebox
+
+def thebutton(lista_audios):
+
     def cert():
-        preguntade1o0=askyesno(title="confirmação", message="Voce tem certeza?")
-        print(preguntade1o0)
+        preguntade1o0=askyesno(title="confirmação", message="Voce tem certeza?\nCaso já tenha um audio vinculado a essa tecla, o audio nao funcionará\nPosteriormente será possivel mudar a tecla selecionada")
+        if preguntade1o0:
+            teclaatribuida=tecla21.get()
+            janela_tecla.destroy()
+            addddd(arquivocomputer, teclaatribuida, lista_audios)
     arquivocomputer=askopenfilename(title="Selecione um arquivo .wav")
     if arquivocomputer!="":
-        janela_tecla=cct.CTk()
-        tecla21=cct.CTkEntry(janela_tecla)
-        tecla21.insert(0, "Insira a tecla")
-        tecla21.grid(column=0, row=0)
+        if arquivocomputer[len(arquivocomputer)-4:]!=".wav":
+            messagebox.showerror(title="ERROR", message="Voce não selecionou um arquivo válido\nou não selecionou um arquivo")
+        else:
+            janela_tecla=cct.CTk()
+            janela_tecla.title("Selecione uma tecla para usar esse audio")
+            janela_tecla.geometry("163x92")
+            janela_tecla.resizable(False, False)
 
-        botao21=cct.CTkButton(janela_tecla, command=cert)
-        botao21.grid(column=0, row=1)
+            tecla21=cct.CTkEntry(janela_tecla)
+            tecla21.insert(0, "Insira a tecla")
+            tecla21.place(x=11, y=11)
 
-        janela_tecla.mainloop()
+            botao21=cct.CTkButton(janela_tecla, command=cert)
+            botao21.place(x=11, y=45)
+
+            def clique(retorno):
+                print(f'x:{retorno.x} / y : {retorno.y} geo :{janela_tecla.geometry()}')
+            janela_tecla.bind('<Button-3>', clique)
+
+            janela_tecla.mainloop()
     else:
-        messagebox.showerror(title="ERROR", message="mensagem")
+        messagebox.showerror(title="ERROR", message="Voce não selecionou um arquivo válido\nou não selecionou um arquivo")
