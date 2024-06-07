@@ -11,10 +11,10 @@ def run_as_admin():
 
 
 if not run_as_admin():
-    print("O script está sendo executado como administrador.")
+    x=0
     sys.exit()
 else:
-    print("O script está sendo executado como administrador.")
+    x=1
+    print(x)
 
     os.system("powershell.exe Install-Module AudioDeviceCmdlets")
-    

@@ -6,7 +6,37 @@ import beck.beckdomain.adicionarforlistbox as bba
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
+import os
+import ctypes
+import sys
+with open("rodar_s_ou_n.txt", "r") as arquivo:
+    n=arquivo.read()
+if n =="sim":
+    def run_as_admin():
+        if ctypes.windll.shell32.IsUserAnAdmin():
+            
+            return True
+            with open("rodar_s_ou_n.txt", "w") as arquivo:
+                    arquivo.write("nao")
+        else:
+            ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
+            return False
 
+
+    if not run_as_admin():
+        sys.exit()
+    else:
+
+        os.system("powershell.exe Install-Module AudioDeviceCmdlets")
+        
+        
+
+        
+
+
+
+def opennotepad():
+    os.system("notepad.exe diretorios.txt")
 #tranformar tela em vertical, botao escutar, botao play
 
 with open("diretorios.txt", "r") as arq:
@@ -34,10 +64,11 @@ else:
 
 
 
+
 janela=ctk.CTk()
 
 janela.title("Silvio Maker")
-janela.geometry("500x300")
+janela.geometry("290x350")
 janela.resizable(False, False)
 
 
@@ -133,8 +164,19 @@ scroll_list_audio2=ctk.CTkScrollbar(janela, orientation="horizontal", command=li
 scroll_list_audio2.place(x=12, y=210)
 list_audios["xscrollcommand"]=scroll_list_audio2.set
 
-#botaoadd=ctk.CTkButton(janela,text="Adicionar Audio",width=180, height=40, command=lambda: bba.thebutton(list_audios))
-#botaoadd.place(x=15, y=255)
+botaoadd=ctk.CTkButton(janela,text="Add. Audio",width=79, height=10,fg_color="Coral4", command=lambda: bba.thebutton(list_audios))
+botaoadd.place(x=200, y=255-1)
+
+botaoadd=ctk.CTkButton(janela,text="Ouvir Audio",width=79, height=10,fg_color="Bisque4", command=lambda: bba.tocaraqueleaudio(list_audios))
+botaoadd.place(x=200, y=278)
+
+botaoacomce=ctk.CTkButton(janela,text="Adicionar Audio",width=172, height=45)
+botaoacomce.place(x=15, y=255)
+
+
+
+
+
 
 botaoaed=ctk.CTkButton(janela,text=" Editar ",width=80, height=10, fg_color="dark green", command=editar_lista)
 botaoaed.place(x=15, y=228)
@@ -142,8 +184,10 @@ botaoaed.place(x=15, y=228)
 botaoare=ctk.CTkButton(janela,text="Apagar",width=80, height=10,fg_color="maroon", command=apagar_da_lista)
 botaoare.place(x=15+80+12, y=228)
 
-botaoaver=ctk.CTkButton(janela,text="Ver",width=80, height=10,fg_color="Purple4", command=apagar_da_lista)
+botaoaver=ctk.CTkButton(janela,text="Ver",width=80, height=10,fg_color="Purple4", command=opennotepad)
 botaoaver.place(x=15+80*2+12*2, y=228)
+
+
 
 
 #saber posição

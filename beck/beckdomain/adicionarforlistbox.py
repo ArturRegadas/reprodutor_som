@@ -3,6 +3,13 @@ from tkinter.messagebox import askyesno
 import customtkinter as cct
 import tkinter as tk
 from tkinter import messagebox
+import beck.backresto.play as bc
+def tocaraqueleaudio(alista):
+    alista=alista.get(tk.ACTIVE)
+    alista=alista.split("    ")
+    alista=alista[2]
+    bc.playmusic(alista)
+
 def addddd (arquivocomputer, teclaatribuida1, lista_audios):
     with open("diretorios.txt", "r") as arquivo:
         diretorio_var=arquivo.read()
