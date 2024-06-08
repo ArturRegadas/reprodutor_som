@@ -14,27 +14,14 @@ with open("rodar_s_ou_n.txt", "r") as arquivo:
 if n =="sim":
     def run_as_admin():
         if ctypes.windll.shell32.IsUserAnAdmin():
-            
             return True
-            with open("rodar_s_ou_n.txt", "w") as arquivo:
-                    arquivo.write("nao")
         else:
             ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
             return False
 
 
-    if not run_as_admin():
-        sys.exit()
-    else:
-
+    if run_as_admin():
         os.system("powershell.exe Install-Module AudioDeviceCmdlets")
-        
-        
-
-        
-
-
-
 def opennotepad():
     os.system("notepad.exe diretorios.txt")
 #tranformar tela em vertical, botao escutar, botao play
@@ -67,13 +54,26 @@ else:
 
 janela=ctk.CTk()
 
+if n == "sim":
+    preguntade1o0=askyesno(title="Pedir novamente", message="Você deseja que a solicitação seja pedida novamente?\nPara que o programa funcione é necessario dar permissão de administrador pelo menos 1 vez")
+    if not preguntade1o0:
+        with open("rodar_s_ou_n.txt", "w") as arquivo:
+                    arquivo.write("nao")
+
 janela.title("Silvio Maker")
 janela.geometry("290x350")
 janela.resizable(False, False)
+my_font = ctk.CTkFont(size=30, family="Courier New")
+Label1=ctk.CTkLabel(janela, text="Silvão AUDS", font=my_font)
+Label1.place(x=15, y=8)
+
+butonimg=tk.PhotoImage(file='Design sem nome (10).png')
+button4=ctk.CTkButton(janela, image=butonimg,height=40, width=40)
+button4.place(x=229, y=5, )
 
 
 list_inutil=tk.Listbox(janela, bg="slategray4",highlightthickness = 0, bd = 0,)
-list_inutil.place(x=15, y=10, width=250, height=15)
+list_inutil.place(x=15, y=10+40, width=250, height=15)
 if teste[0]=="":
     list_inutil.insert(0, "   NOME                        TECLA                        DIRETORIO")
 else:
@@ -152,26 +152,26 @@ def editar_lista():
     janela_selcao_editar.mainloop()
 
 list_audios=tk.Listbox(janela, bg="slategray4",highlightthickness = 0, bd = 0,)
-list_audios.place(x=15, y=25, width=250, height=200-15)
+list_audios.place(x=15, y=25+40, width=250, height=200-15)
 for i in range(0, len(teste)):
     list_audios.insert(i,teste[i])
 
 scroll_list_audio1=ctk.CTkScrollbar(janela, orientation="vertical", command=list_audios.yview, height=200+9)
-scroll_list_audio1.place(x=15+250, y=7)
+scroll_list_audio1.place(x=15+250, y=7+40)
 list_audios["yscrollcommand"]=scroll_list_audio1.set
 
 scroll_list_audio2=ctk.CTkScrollbar(janela, orientation="horizontal", command=list_audios.xview, width=258)
-scroll_list_audio2.place(x=12, y=210)
+scroll_list_audio2.place(x=12, y=210+40)
 list_audios["xscrollcommand"]=scroll_list_audio2.set
 
 botaoadd=ctk.CTkButton(janela,text="Add. Audio",width=79, height=10,fg_color="Coral4", command=lambda: bba.thebutton(list_audios))
-botaoadd.place(x=200, y=255-1)
+botaoadd.place(x=200, y=255-1+40)
 
 botaoadd=ctk.CTkButton(janela,text="Ouvir Audio",width=79, height=10,fg_color="Bisque4", command=lambda: bba.tocaraqueleaudio(list_audios))
-botaoadd.place(x=200, y=278)
+botaoadd.place(x=200, y=278+40)
 
-botaoacomce=ctk.CTkButton(janela,text="Adicionar Audio",width=172, height=45)
-botaoacomce.place(x=15, y=255)
+botaoacomce=ctk.CTkButton(janela,text="INICIAR",width=172, height=45)
+botaoacomce.place(x=15, y=255+40)
 
 
 
@@ -179,13 +179,13 @@ botaoacomce.place(x=15, y=255)
 
 
 botaoaed=ctk.CTkButton(janela,text=" Editar ",width=80, height=10, fg_color="dark green", command=editar_lista)
-botaoaed.place(x=15, y=228)
+botaoaed.place(x=15, y=228+40)
 
 botaoare=ctk.CTkButton(janela,text="Apagar",width=80, height=10,fg_color="maroon", command=apagar_da_lista)
-botaoare.place(x=15+80+12, y=228)
+botaoare.place(x=15+80+12, y=228+40)
 
 botaoaver=ctk.CTkButton(janela,text="Ver",width=80, height=10,fg_color="Purple4", command=opennotepad)
-botaoaver.place(x=15+80*2+12*2, y=228)
+botaoaver.place(x=15+80*2+12*2, y=228+40)
 
 
 
