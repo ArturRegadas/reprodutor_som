@@ -1,1 +1,1 @@
-O auge do front-end e design
+O auge do front-end, design e da criatividade
