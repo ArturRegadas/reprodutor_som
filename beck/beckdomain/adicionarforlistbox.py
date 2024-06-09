@@ -8,6 +8,8 @@ def tocaraqueleaudio(alista):
     alista=alista.get(tk.ACTIVE)
     alista=alista.split("    ")
     alista=alista[2]
+    if "\n" in alista:
+        alista=alista[:alista.index("\n")]
     bc.playmusic(alista)
 
 def addddd (arquivocomputer, teclaatribuida1, lista_audios):

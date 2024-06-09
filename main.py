@@ -3,6 +3,7 @@ import ttkthemes as ttk
 import tkinter as tk
 from tkinter.messagebox import askyesno
 import beck.beckdomain.adicionarforlistbox as bba
+import beck.beckdomain.jane_config01 as janco
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
@@ -24,7 +25,6 @@ if n =="sim":
         os.system("powershell.exe Install-Module AudioDeviceCmdlets")
 def opennotepad():
     os.system("notepad.exe diretorios.txt")
-#tranformar tela em vertical, botao escutar, botao play
 
 with open("diretorios.txt", "r") as arq:
     teste=arq.read()
@@ -68,8 +68,8 @@ Label1=ctk.CTkLabel(janela, text="Silvão AUDS", font=my_font)
 Label1.place(x=15, y=8)
 
 butonimg=tk.PhotoImage(file='Design sem nome (10).png')
-button4=ctk.CTkButton(janela, image=butonimg,height=40, width=40)
-button4.place(x=229, y=5, )
+button4=tk.Button(janela, image=butonimg, relief='flat', command=janco.configurar)
+button4.place(x=229, y=5, height=40, width=40)
 
 
 list_inutil=tk.Listbox(janela, bg="slategray4",highlightthickness = 0, bd = 0,)
