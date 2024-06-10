@@ -37,7 +37,7 @@ def thebutton(lista_audios):
             addddd(arquivocomputer, teclaatribuida, lista_audios)
     arquivocomputer=askopenfilename(title="Selecione um arquivo .wav")
     if arquivocomputer!="":
-        if arquivocomputer[len(arquivocomputer)-4:]!=".wav":
+        if arquivocomputer[len(arquivocomputer)-4:]!=".wav" and arquivocomputer[len(arquivocomputer)-4:]!=".WAV":
             messagebox.showerror(title="ERROR", message="Voce não selecionou um arquivo válido\nou não selecionou um arquivo")
         else:
             janela_tecla=cct.CTk()

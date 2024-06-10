@@ -7,9 +7,12 @@ import beck.beckdomain.jane_config01 as janco
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
+import beck.backresto.junts as junts
 import os
+import soundcard as sc
 import ctypes
 import sys
+
 with open("rodar_s_ou_n.txt", "r") as arquivo:
     n=arquivo.read()
 if n =="sim":
@@ -64,6 +67,7 @@ janela.title("Silvio Maker")
 janela.geometry("290x350")
 janela.resizable(False, False)
 my_font = ctk.CTkFont(size=30, family="Courier New")
+
 Label1=ctk.CTkLabel(janela, text="Silvão AUDS", font=my_font)
 Label1.place(x=15, y=8)
 
@@ -156,6 +160,7 @@ list_audios.place(x=15, y=25+40, width=250, height=200-15)
 for i in range(0, len(teste)):
     list_audios.insert(i,teste[i])
 
+
 scroll_list_audio1=ctk.CTkScrollbar(janela, orientation="vertical", command=list_audios.yview, height=200+9)
 scroll_list_audio1.place(x=15+250, y=7+40)
 list_audios["yscrollcommand"]=scroll_list_audio1.set
@@ -170,7 +175,7 @@ botaoadd.place(x=200, y=255-1+40)
 botaoadd=ctk.CTkButton(janela,text="Ouvir Audio",width=79, height=10,fg_color="Bisque4", command=lambda: bba.tocaraqueleaudio(list_audios))
 botaoadd.place(x=200, y=278+40)
 
-botaoacomce=ctk.CTkButton(janela,text="INICIAR",width=172, height=45)
+botaoacomce=ctk.CTkButton(janela,text="INICIAR",width=172, height=45, command=lambda: junts.inifin(janela))
 botaoacomce.place(x=15, y=255+40)
 
 
@@ -186,14 +191,6 @@ botaoare.place(x=15+80+12, y=228+40)
 
 botaoaver=ctk.CTkButton(janela,text="Ver",width=80, height=10,fg_color="Purple4", command=opennotepad)
 botaoaver.place(x=15+80*2+12*2, y=228+40)
-
-
-
-
-#saber posição
-def clique(retorno):
-    print(f'x:{retorno.x} / y : {retorno.y} geo :{janela.geometry()}')
-janela.bind('<Button-3>', clique)
 
 
 janela.mainloop()
