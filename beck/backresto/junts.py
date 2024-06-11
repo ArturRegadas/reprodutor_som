@@ -1,5 +1,4 @@
-def inifin(jna):
-    import time   
+def inifin(jna): 
     from tkinter import messagebox
     with open("index_out.txt", "r") as arquivo:
         oarquivoentry=arquivo.read()

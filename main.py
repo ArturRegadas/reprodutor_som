@@ -172,8 +172,8 @@ list_audios["xscrollcommand"]=scroll_list_audio2.set
 botaoadd=ctk.CTkButton(janela,text="Add. Audio",width=79, height=10,fg_color="Coral4", command=lambda: bba.thebutton(list_audios))
 botaoadd.place(x=200, y=255-1+40)
 
-botaoadd=ctk.CTkButton(janela,text="Ouvir Audio",width=79, height=10,fg_color="Bisque4", command=lambda: bba.tocaraqueleaudio(list_audios))
-botaoadd.place(x=200, y=278+40)
+botaoadd1=ctk.CTkButton(janela,text="Ouvir Audio",width=79, height=10,fg_color="Bisque4", command=lambda: bba.tocaraqueleaudio(list_audios))
+botaoadd1.place(x=200, y=278+40)
 
 botaoacomce=ctk.CTkButton(janela,text="INICIAR",width=172, height=45, command=lambda: junts.inifin(janela))
 botaoacomce.place(x=15, y=255+40)

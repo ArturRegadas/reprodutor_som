@@ -2,6 +2,8 @@ import customtkinter as ctk
 import tkinter as tk
 import soundcard as sc
 from tkinter import messagebox
+import sys
+
 
 def listar():
     list_c_auds=[]
